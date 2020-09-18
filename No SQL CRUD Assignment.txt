@@ -1,8 +1,106 @@
- use patients
+C:\Program Files\MongoDB\Server\3.2\bin>mongo
+MongoDB shell version: 3.2.22
+connecting to: test
+> use patients
 switched to db patients
+> patientsdb.insertOne({"name":"xyz",disease:[{diseasename:"cold",medicine:"paracetamol"}]})
+2020-09-18T10:11:27.932+0530 E QUERY    [thread1] ReferenceError: patientsdb is not defined :
+@(shell):1:1
 
 > db.patientData.insertOne({"name":"xyz",disease:[{diseasename:"cold",medicine:"paracetamol"}]})
 {
         "acknowledged" : true,
         "insertedId" : ObjectId("5f643b9fd07ee911f8cc5065")
+}
+> db.patientData.insertOne({"name":"abc",disease:[{diseasename:"fever",medicine:"paracetamol"},{diseasename:"pqr",medicine:"123"}]})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5f644164d07ee911f8cc5066")
+}
+> db.patientData.find()
+{ "_id" : ObjectId("5f643b9fd07ee911f8cc5065"), "name" : "xyz", "disease" : [ { "diseasename" : "cold", "medicine" : "paracetamol" } ] }
+{ "_id" : ObjectId("5f644164d07ee911f8cc5066"), "name" : "abc", "disease" : [ { "diseasename" : "fever", "medicine" : "paracetamol" }, { "diseasename" : "pqr", "medicine" : "123" } ] }
+> db.patientData.find().pretty()
+{
+        "_id" : ObjectId("5f643b9fd07ee911f8cc5065"),
+        "name" : "xyz",
+        "disease" : [
+                {
+                        "diseasename" : "cold",
+                        "medicine" : "paracetamol"
+                }
+        ]
+}
+{
+        "_id" : ObjectId("5f644164d07ee911f8cc5066"),
+        "name" : "abc",
+        "disease" : [
+                {
+                        "diseasename" : "fever",
+                        "medicine" : "paracetamol"
+                },
+                {
+                        "diseasename" : "pqr",
+                        "medicine" : "123"
+                }
+        ]
+}
+> db.patientData.insertOne({"name":"lmn",disease:[{diseasename:"back pain",medicine:"moov"},{diseasename:"pqr",medicine:"123"}]})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5f6442a2d07ee911f8cc5067")
+}
+> db.patientData.find().pretty()
+{
+        "_id" : ObjectId("5f643b9fd07ee911f8cc5065"),
+        "name" : "xyz",
+        "disease" : [
+                {
+                        "diseasename" : "cold",
+                        "medicine" : "paracetamol"
+                }
+        ]
+}
+{
+        "_id" : ObjectId("5f644164d07ee911f8cc5066"),
+        "name" : "abc",
+        "disease" : [
+                {
+                        "diseasename" : "fever",
+                        "medicine" : "paracetamol"
+                },
+                {
+                        "diseasename" : "pqr",
+                        "medicine" : "123"
+                }
+        ]
+}
+{
+        "_id" : ObjectId("5f6442a2d07ee911f8cc5067"),
+        "name" : "lmn",
+        "disease" : [
+                {
+                        "diseasename" : "back pain",
+                        "medicine" : "moov"
+                },
+                {
+                        "diseasename" : "pqr",
+                        "medicine" : "123"
+                }
+        ]
+}
+> db.patientData.findOne({name:"lmn"})
+{
+        "_id" : ObjectId("5f6442a2d07ee911f8cc5067"),
+        "name" : "lmn",
+        "disease" : [
+                {
+                        "diseasename" : "back pain",
+                        "medicine" : "moov"
+                },
+                {
+                        "diseasename" : "pqr",
+                        "medicine" : "123"
+                }
+        ]
 }
