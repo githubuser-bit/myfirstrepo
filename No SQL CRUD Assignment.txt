@@ -104,3 +104,14 @@ switched to db patients
                 }
         ]
 }
+> db.patientData.findOne({},{disease:[{diseasename:"fever"}]})
+{
+        "_id" : ObjectId("5f643b9fd07ee911f8cc5065"),
+        "disease" : [
+                {
+                        "diseasename" : "cold",
+                        "medicine" : "paracetamol"
+                }
+        ]
+}
+>
