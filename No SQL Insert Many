@@ -1,0 +1,115 @@
+> use companyData
+switched to db companyData
+> db.companyDataData.insertMany([{name:"Google",location:["States","Brazil"]}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("5f65810cd239da4d13f1bc7f")
+        ]
+}
+> db.companyDataData.find().pretty()
+{
+        "_id" : ObjectId("5f65810cd239da4d13f1bc7f"),
+        "name" : "Google",
+        "location" : [
+                "States",
+                "Brazil"
+        ]
+}
+> db.companyDataData.insertMany([{name:"Apple",location:["States","South Korea"],_id:ObjectId("5f65810cd239da4d13f1bc7f")}])
+2020-09-19T09:28:35.215+0530 E QUERY    [thread1] BulkWriteError: write error at item 0 in bulk operation :
+BulkWriteError({
+        "writeErrors" : [
+                {
+                        "index" : 0,
+                        "code" : 11000,
+                        "errmsg" : "E11000 duplicate key error collection: companyData.companyDataData index: _id_ dup key: { : ObjectId('5f65810cd239da4d13f1bc7f') }",
+                        "op" : {
+                                "name" : "Apple",
+                                "location" : [
+                                        "States",
+                                        "South Korea"
+                                ],
+                                "_id" : ObjectId("5f65810cd239da4d13f1bc7f")
+                        }
+                }
+        ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 0,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+BulkWriteError@src/mongo/shell/bulk_api.js:371:48
+BulkWriteResult/this.toError@src/mongo/shell/bulk_api.js:335:24
+Bulk/this.execute@src/mongo/shell/bulk_api.js:1177:1
+DBCollection.prototype.insertMany@src/mongo/shell/crud_api.js:281:5
+@(shell):1:1
+
+> db.companyDataData.insertMany([{name:"Apple",location:["States","South Korea"],_id:ObjectId("5f65810cd239da4d13f1bc7f")},{name:"Amazon",location:["India","Russia"],_id:"apple"}])
+2020-09-19T09:45:37.079+0530 E QUERY    [thread1] BulkWriteError: write error at item 0 in bulk operation :
+BulkWriteError({
+        "writeErrors" : [
+                {
+                        "index" : 0,
+                        "code" : 11000,
+                        "errmsg" : "E11000 duplicate key error collection: companyData.companyDataData index: _id_ dup key: { : ObjectId('5f65810cd239da4d13f1bc7f') }",
+                        "op" : {
+                                "name" : "Apple",
+                                "location" : [
+                                        "States",
+                                        "South Korea"
+                                ],
+                                "_id" : ObjectId("5f65810cd239da4d13f1bc7f")
+                        }
+                }
+        ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 0,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+BulkWriteError@src/mongo/shell/bulk_api.js:371:48
+BulkWriteResult/this.toError@src/mongo/shell/bulk_api.js:335:24
+Bulk/this.execute@src/mongo/shell/bulk_api.js:1177:1
+DBCollection.prototype.insertMany@src/mongo/shell/crud_api.js:281:5
+@(shell):1:1
+
+> db.companyDataData.insertMany([{name:"Apple",location:["States","South Korea"],_id:ObjectId("5f65810cd239da4d13f1bc7f")},{name:"Amazon",location:["India","Russia"],_id:"apple"}],{ordered:false})
+2020-09-19T09:46:09.637+0530 E QUERY    [thread1] BulkWriteError: write error at item 0 in bulk operation :
+BulkWriteError({
+        "writeErrors" : [
+                {
+                        "index" : 0,
+                        "code" : 11000,
+                        "errmsg" : "E11000 duplicate key error collection: companyData.companyDataData index: _id_ dup key: { : ObjectId('5f65810cd239da4d13f1bc7f') }",
+                        "op" : {
+                                "name" : "Apple",
+                                "location" : [
+                                        "States",
+                                        "South Korea"
+                                ],
+                                "_id" : ObjectId("5f65810cd239da4d13f1bc7f")
+                        }
+                }
+        ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 1,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+BulkWriteError@src/mongo/shell/bulk_api.js:371:48
+BulkWriteResult/this.toError@src/mongo/shell/bulk_api.js:335:24
+Bulk/this.execute@src/mongo/shell/bulk_api.js:1177:1
+DBCollection.prototype.insertMany@src/mongo/shell/crud_api.js:281:5
+@(shell):1:1
+
+>
